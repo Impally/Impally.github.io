@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Jekyll Bootstrap</title>
- <link href="http://username.github.io/" rel="self"/>
- <link href="http://username.github.io"/>
- <updated>2014-10-15T13:05:19-04:00</updated>
- <id>http://username.github.io</id>
+ <title>The Projects Blog</title>
+ <link href="http://impally.github.io/" rel="self"/>
+ <link href="http://impally.github.io"/>
+ <updated>2014-10-17T12:25:03-04:00</updated>
+ <id>http://impally.github.io</id>
  <author>
-   <name>Name Lastname</name>
-   <email>blah@email.test</email>
+   <name>Rodger Friesen</name>
+   <email>Rodger.Friesen@gmail.com</email>
  </author>
 
  
  <entry>
    <title>Resume</title>
-   <link href="http://username.github.io/2014/10/15/resume"/>
+   <link href="http://impally.github.io/2014/10/15/resume"/>
    <updated>2014-10-15T00:00:00-04:00</updated>
-   <id>http://username.github.io/2014/10/15/resume</id>
+   <id>http://impally.github.io/2014/10/15/resume</id>
    <content type="html">
 </content>
  </entry>
  
  <entry>
    <title>Jekyll Introduction</title>
-   <link href="http://username.github.io/lessons/2011/12/29/jekyll-introduction"/>
+   <link href="http://impally.github.io/lessons/2011/12/29/jekyll-introduction"/>
    <updated>2011-12-29T00:00:00-05:00</updated>
-   <id>http://username.github.io/lessons/2011/12/29/jekyll-introduction</id>
+   <id>http://impally.github.io/lessons/2011/12/29/jekyll-introduction</id>
    <content type="html">
 &lt;p&gt;This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
 Directly following the intro we’ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;

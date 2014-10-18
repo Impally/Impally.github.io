@@ -4,7 +4,7 @@
  <title>The Projects Blog</title>
  <link href="http://impally.github.io/" rel="self"/>
  <link href="http://impally.github.io"/>
- <updated>2014-10-17T12:25:03-04:00</updated>
+ <updated>2014-10-18T11:20:27-04:00</updated>
  <id>http://impally.github.io</id>
  <author>
    <name>Rodger Friesen</name>
@@ -23,9 +23,9 @@
  
  <entry>
    <title>Jekyll Introduction</title>
-   <link href="http://impally.github.io/lessons/2011/12/29/jekyll-introduction"/>
+   <link href="http://impally.github.io/Jekyll_Introduction"/>
    <updated>2011-12-29T00:00:00-05:00</updated>
-   <id>http://impally.github.io/lessons/2011/12/29/jekyll-introduction</id>
+   <id>http://impally.github.io/jekyll-introduction</id>
    <content type="html">
 &lt;p&gt;This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
 Directly following the intro we’ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
@@ -118,6 +118,11 @@ Jekyll-bootstrap conveniently provides the base directory format.&lt;/p&gt;
     |-- css
         |-- style.css
     |-- javascripts
+
+def main():
+  for i in range(10):
+    print(&quot;Hello&quot;)
+main()
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;

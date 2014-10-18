@@ -20,10 +20,10 @@
     <link href="/assets/themes/hooligan/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/hooligan/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/themes/hooligan/css-social-buttons/css/zocial.stripped.css">
-    <link href="/assets/themes/hooligan/css/pygments.css" rel="stylesheet" type="text/css" media="all">
     <link href="/assets/themes/hooligan/css/darkstrap.css" rel="stylesheet" type="text/css" media="all">
     <link href="/assets/themes/hooligan/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
-
+    <link href="/assets/sons-of-obsidian.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/google-code-prettify/prettify.js"></script>
     <!-- fav and touch icons -->
     <!-- Update these with your own images
       <link rel="shortcut icon" href="images/favicon.ico">
@@ -33,7 +33,7 @@
     -->
   </head>
 
-  <body>
+  <body OnLoad="prettyPrint()">
     <div id="page-wrap">
       <div class="navbar">
         <div class="navbar-inner">
@@ -178,11 +178,48 @@ When you don’t need the samples anymore just delete the <code>_posts/core-samp
   
     <li><span>15 Oct 2014</span> &raquo; <a href="/2014/10/15/resume">Resume</a></li>
   
-    <li><span>29 Dec 2011</span> &raquo; <a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
+    <li><span>29 Dec 2011</span> &raquo; <a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
   
 </ul>
 
 <h2 id="to-do">To-Do</h2>
+<pre><code>local function showTooltip(self, linkData)
+local linkType = string.split(":", linkData)
+  if linkType == "item"
+  or linkType == "spell"
+  or linkType == "enchant"
+  or linkType == "quest"
+  or linkType == "talent"
+  or linkType == "glyph"
+  or linkType == "unit"
+  or linkType == "achievement" then
+    GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+    GameTooltip:SetHyperlink(linkData)
+    GameTooltip:Show()
+  else
+    print(...)
+  end
+end
+local function hideTooltip()
+  GameTooltip:Hide()
+end
+
+local function setOrHookHandler(frame, script, func)
+  if frame:GetScript(script) then -- check if it already has a      script handler...
+    frame:HookScript(script, func) -- ... Hook that script.
+  else
+    frame:SetScript(script, func) -- set our function as script handler
+  end
+end
+
+for i = 1, NUM_CHAT_WINDOWS do
+  local frame = getglobal("ChatFrame"..i) -- copy each chat frame
+  if frame then -- making sure frame is not null
+    setOrHookHandler(frame, "OnHyperLinkEnter", showTooltip)
+    setOrHookHandler(frame, "OnHyperLinkLeave", hideTooltip)
+  end
+end
+</code></pre>
 
 <p>I plan on eventually contributing. If you’d like to be added as a contributor, <a href="http://github.com/plusjade/jekyll-bootstrap">please fork</a>!
 We need to clean up the themes, make theme usage guides with theme-specific markup examples.</p>
@@ -210,7 +247,7 @@ We need to clean up the themes, make theme usage guides with theme-specific mark
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/assets/themes/hooligan/js/jquery.min.js"><\/script>')</script>
     <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script>
-
+    <script>[].forEach.call(document.getElementsByTagName("pre"), function(el) { el.classList.add("prettyprint"); }); prettyPrint(); </script>
     
   </body>
 </html>

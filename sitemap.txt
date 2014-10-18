@@ -9,4 +9,4 @@ http://impally.github.io/sitemap.txt
 http://impally.github.io/tags.html
 
 http://impally.github.io/2014/10/15/resume
-http://impally.github.io/lessons/2011/12/29/jekyll-introduction
+http://impally.github.io/Jekyll_Introduction

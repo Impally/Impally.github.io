@@ -20,10 +20,10 @@
     <link href="/assets/themes/hooligan/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/hooligan/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/themes/hooligan/css-social-buttons/css/zocial.stripped.css">
-    <link href="/assets/themes/hooligan/css/pygments.css" rel="stylesheet" type="text/css" media="all">
     <link href="/assets/themes/hooligan/css/darkstrap.css" rel="stylesheet" type="text/css" media="all">
     <link href="/assets/themes/hooligan/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
-
+    <link href="/assets/sons-of-obsidian.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/google-code-prettify/prettify.js"></script>
     <!-- fav and touch icons -->
     <!-- Update these with your own images
       <link rel="shortcut icon" href="images/favicon.ico">
@@ -33,7 +33,7 @@
     -->
   </head>
 
-  <body>
+  <body OnLoad="prettyPrint()">
     <div id="page-wrap">
       <div class="navbar">
         <div class="navbar-inner">
@@ -179,7 +179,7 @@
     
       
       	
-      	<li><a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
+      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
       	
       
     
@@ -199,7 +199,7 @@
     
       
       	
-      	<li><a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
+      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
       	
       
     
@@ -219,7 +219,7 @@
     
       
       	
-      	<li><a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
+      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
       	
       
     
@@ -239,7 +239,7 @@
     
       
       	
-      	<li><a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
+      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
       	
       
     
@@ -272,7 +272,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/assets/themes/hooligan/js/jquery.min.js"><\/script>')</script>
     <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script>
-
+    <script>[].forEach.call(document.getElementsByTagName("pre"), function(el) { el.classList.add("prettyprint"); }); prettyPrint(); </script>
     
   </body>
 </html>

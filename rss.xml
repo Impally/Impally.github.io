@@ -5,8 +5,8 @@
         <description>The Projects Blog - Rodger Friesen</description>
         <link>http://impally.github.io</link>
         <link>http://impally.github.io</link>
-        <lastBuildDate>2014-10-17T12:25:03-04:00</lastBuildDate>
-        <pubDate>2014-10-17T12:25:03-04:00</pubDate>
+        <lastBuildDate>2014-10-18T11:20:27-04:00</lastBuildDate>
+        <pubDate>2014-10-18T11:20:27-04:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -113,6 +113,11 @@ Jekyll-bootstrap conveniently provides the base directory format.&lt;/p&gt;
     |-- css
         |-- style.css
     |-- javascripts
+
+def main():
+  for i in range(10):
+    print(&quot;Hello&quot;)
+main()
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
@@ -437,8 +442,8 @@ As noted, our main programming constraint is the fact that our API is limited to
 &lt;p&gt;Please take a look at []()
 or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you’d like.&lt;/p&gt;
 </description>
-                <link>http://impally.github.io/lessons/2011/12/29/jekyll-introduction</link>
-                <guid>http://impally.github.io/lessons/2011/12/29/jekyll-introduction</guid>
+                <link>http://impally.github.io/Jekyll_Introduction</link>
+                <guid>http://impally.github.io/jekyll-introduction</guid>
                 <pubDate>2011-12-29T00:00:00-05:00</pubDate>
         </item>
 

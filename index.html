@@ -25,12 +25,10 @@
     <link href="/assets/sons-of-obsidian.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/assets/google-code-prettify/prettify.js"></script>
     <!-- fav and touch icons -->
-    <!-- Update these with your own images
-      <link rel="shortcut icon" href="images/favicon.ico">
-      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-    -->
+      <link rel="shortcut icon" href="/assets/pictures/theview.jpg">
+      <link rel="apple-touch-icon" href="/assets/pictures/theview.jpg">
+      <link rel="apple-touch-icon" sizes="72x72" href="/assets/pictures/theview.jpg">
+      <link rel="apple-touch-icon" sizes="114x114" href="/assets/pictures/theview.jpg">
   </head>
 
   <body OnLoad="prettyPrint()">
@@ -54,6 +52,10 @@
                 
 
 
+  
+    
+      
+    
   
     
       
@@ -106,6 +108,7 @@
 
 
 
+                <li><a href="/about.html">About Me</a></li>
               </ul>
               <ul class="nav pull-right social visible-desktop">
                 <li class="divider-vertical"></li>
@@ -145,84 +148,15 @@
 <div class="row">
   <div class="span12">
     
-<p>Read <a href="http://jekyllbootstrap.com/usage/jekyll-quick-start.html">Jekyll Quick Start</a></p>
-
-<p>Complete usage and documentation available at: <a href="http://jekyllbootstrap.com">Jekyll Bootstrap</a></p>
-
-<h2 id="update-author-attributes">Update Author Attributes</h2>
-
-<p>In <code>_config.yml</code> remember to specify your own data:</p>
-
-<pre><code>title : My Blog =)
-
-author :
-  name : Name Lastname
-  email : blah@email.test
-  github : username
-  twitter : username
-</code></pre>
-
-<p>The theme should reference these variables whenever needed.</p>
-
-<h2 id="sample-posts">Sample Posts</h2>
-
-<p>This blog contains sample posts which help stage pages and blog data.
-When you don’t need the samples anymore just delete the <code>_posts/core-samples</code> folder.</p>
-
-<pre><code>$ rm -rf _posts/core-samples
-</code></pre>
-
-<p>Here’s a sample “posts list”.</p>
-
 <ul class="posts">
   
-    <li><span>15 Oct 2014</span> &raquo; <a href="/2014/10/15/resume">Resume</a></li>
+    <li><span>18 Oct 2014</span> &raquo; <a href="/Learning_Lua">Learning LUA, WoW Addons</a></li>
+  
+    <li><span>18 Oct 2014</span> &raquo; <a href="/2014/10/18/learning-apis-reddit-wallpapers">Learning APIs, Reddit Wallpapers</a></li>
   
     <li><span>29 Dec 2011</span> &raquo; <a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
   
 </ul>
-
-<h2 id="to-do">To-Do</h2>
-<pre><code>local function showTooltip(self, linkData)
-local linkType = string.split(":", linkData)
-  if linkType == "item"
-  or linkType == "spell"
-  or linkType == "enchant"
-  or linkType == "quest"
-  or linkType == "talent"
-  or linkType == "glyph"
-  or linkType == "unit"
-  or linkType == "achievement" then
-    GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-    GameTooltip:SetHyperlink(linkData)
-    GameTooltip:Show()
-  else
-    print(...)
-  end
-end
-local function hideTooltip()
-  GameTooltip:Hide()
-end
-
-local function setOrHookHandler(frame, script, func)
-  if frame:GetScript(script) then -- check if it already has a      script handler...
-    frame:HookScript(script, func) -- ... Hook that script.
-  else
-    frame:SetScript(script, func) -- set our function as script handler
-  end
-end
-
-for i = 1, NUM_CHAT_WINDOWS do
-  local frame = getglobal("ChatFrame"..i) -- copy each chat frame
-  if frame then -- making sure frame is not null
-    setOrHookHandler(frame, "OnHyperLinkEnter", showTooltip)
-    setOrHookHandler(frame, "OnHyperLinkLeave", hideTooltip)
-  end
-end
-</code></pre>
-
-<p>I plan on eventually contributing. If you’d like to be added as a contributor, <a href="http://github.com/plusjade/jekyll-bootstrap">please fork</a>!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.</p>
 
 
   </div>
@@ -237,6 +171,7 @@ We need to clean up the themes, make theme usage guides with theme-specific mark
 
     <footer>
       <div class="container">
+        <a href="impally.github.io/Resume.html">My Resume</a>
         <p>&copy; 2014 Rodger Friesen
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>

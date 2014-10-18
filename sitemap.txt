@@ -1,4 +1,5 @@
 
+http://impally.github.io/about.html
 http://impally.github.io/archive.html
 http://impally.github.io/atom.xml
 http://impally.github.io/categories.html
@@ -8,5 +9,6 @@ http://impally.github.io/rss.xml
 http://impally.github.io/sitemap.txt
 http://impally.github.io/tags.html
 
-http://impally.github.io/2014/10/15/resume
+http://impally.github.io/Learning_Lua
+http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers
 http://impally.github.io/Jekyll_Introduction

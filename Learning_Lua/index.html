@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>
       
-        Tags - 
+        Learning LUA, WoW Addons - 
       
       The Projects Blog
     </title>
-    
+    <meta name="description" content="">
     <meta name="author" content="Rodger Friesen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -100,7 +100,7 @@
     
       
       	
-      	<li class="active"><a href="/tags.html" class="active">Tags</a></li>
+      	<li><a href="/tags.html">Tags</a></li>
       	
       
     
@@ -139,30 +139,112 @@
       <div class="container">
         <div class="content">
           
-<div class="page-header-wrapper">
-	<div class="page-header">
-  		<h1>Tags </h1>
-  	</div>
+<div class="page-header">
+  <h1>
+    Learning LUA, WoW Addons 
+    
+  </h1>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span8">
     
+<p>I enjoy playing video games and my new interest in coding led me to want to start writing my own add-ons.  I recently purchased the book Beginning Lua with World of Warcraft Add-Ons, a tutorial written by the creator of a popular in game addon, Deadly Boss Mods, Paul Emmerich.  These are a few addons that I’ve worked with creating while doing the book and code enclosed explaining what each segment does.</p>
 
-<ul class="tag_box inline">
+<pre><code>HelloWorld_Text = {}
+channel = 'SAY'
+
+SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = '/hiw', '/hellow';
+function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match("(%S+)%s+(.+)")
+	if id and text then
+		HelloWorld_Text[id:lower()] = text
+	end
+end
+
+SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = "/hwshow", "/helloworldshow"
+function SlashCmdList.HELLOWORLD_SHOW(msg)
+	local text = HelloWorld_Text[msg:lower()]
+	if text then
+		SendChatMessage(text, channel);
+	end
+end
+</code></pre>
+
+<p>Let’s look at the start of the code:</p>
+
+<pre><code>HelloWorld_Text = {}
+channel = 'SAY'
+</code></pre>
+
+<p>These are globally declared variables, a Table HelloWorld_Text and string that we will use to decide what channel our command gets used in.
+The next lines mark the first function, this function defines an in-game command a slash command, and then decides what that slash command does.</p>
+
+<pre><code>SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = '/hiw', '/hellow';
+function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match("(%S+)%s+(.+)")
+	if id and text then
+		HelloWorld_Text[id:lower()] = text
+	end
+end
+</code></pre>
+
+<p>SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = ‘/hiw’, ‘/hellow’; This line defines a set of / commands a user can use in game to call the HELLOWORLD function, which we define immediately under as needing an argument that we parse using regular expressions.</p>
+
+<pre><code>function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match("(%S+)%s+(.+)")
+</code></pre>
+
+<p>What we have here is a function that gets called every time someone inputs a slash command that calls HELLOWORLD but it requires to have an argument immediately after, the next line is the start of the function that parses the argument that gets passed.  (%S)%s takes in the first Nonspace character and stops at the first whitespace character, which means the first word in our argument becomes id, (.+) is an expression that takes everything else and puts it into text.</p>
+
+<pre><code>if id and text then
+	HelloWorld_Text[id:lower()] = text
+</code></pre>
+
+<p>Then once we have our two variable, we insert them into the table so that using the id as a reference, we will get text.  id:lower() just allows us to always convert whatever argument a user puts in to lower case so that these commands are not case sensitive to call back.  So, now that we have HelloWorld_Text defined as something, what are we going to do with it?</p>
+
+<pre><code>SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = "/hwshow", "/helloworldshow"
+</code></pre>
+
+<p>This is simply creating another slash command which we will use to put out the contents of HelloWorld_Text for the user.</p>
+
+<pre><code>function SlashCmdList.HELLOWORLD_SHOW(msg)
+	local text = HelloWorld_Text[msg:lower()]
+		if text then
+		SendChatMessage(text, channel);
+</code></pre>
+
+<p>So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.</p>
+
+    <hr>
+    <div class="pagination btn-group">
+      
+        <a class="btn prev" href="/2014/10/18/learning-apis-reddit-wallpapers" title="Learning APIs, Reddit Wallpapers">&larr; Previous</a>
+      
+        <a class="btn" href="/archive.html">Archive</a>
+      
+        <a class="btn next disabled">Next &rarr;</a>
+      
+    </div>
+    <hr>
     
+  </div>
   
+  <div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>18 October 2014</span></div>
+    </section>
+         
+    
+      <section>
+        <h4>Tags</h4>
+        <ul class="tag_box">
+          
+          
 
 
   
-     
-    	<li><a href="/tags.html#intro-ref">intro <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#beginner-ref">beginner <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#jekyll-ref">jekyll <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#tutorial-ref">tutorial <span>1</span></a></li>
      
     	<li><a href="/tags.html#LUA-ref">LUA <span>1</span></a></li>
     
@@ -170,111 +252,9 @@
 
 
 
-</ul>
-
-
- 
-  <h2 id="intro-ref">intro</h2>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
- 
-  <h2 id="beginner-ref">beginner</h2>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
- 
-  <h2 id="jekyll-ref">jekyll</h2>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
- 
-  <h2 id="tutorial-ref">tutorial</h2>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/Jekyll_Introduction">Jekyll Introduction</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
- 
-  <h2 id="LUA-ref">LUA</h2>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/Learning_Lua">Learning LUA, WoW Addons</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
-
-
+        </ul>
+      </section>
+             
   </div>
 </div>
 

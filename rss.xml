@@ -5,18 +5,93 @@
         <description>The Projects Blog - Rodger Friesen</description>
         <link>http://impally.github.io</link>
         <link>http://impally.github.io</link>
-        <lastBuildDate>2014-10-18T11:20:27-04:00</lastBuildDate>
-        <pubDate>2014-10-18T11:20:27-04:00</pubDate>
+        <lastBuildDate>2014-10-18T19:11:45-04:00</lastBuildDate>
+        <pubDate>2014-10-18T19:11:45-04:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
-                <title>Resume</title>
+                <title>Learning LUA, WoW Addons</title>
+                <description>
+&lt;p&gt;I enjoy playing video games and my new interest in coding led me to want to start writing my own add-ons.  I recently purchased the book Beginning Lua with World of Warcraft Add-Ons, a tutorial written by the creator of a popular in game addon, Deadly Boss Mods, Paul Emmerich.  These are a few addons that I’ve worked with creating while doing the book and code enclosed explaining what each segment does.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;HelloWorld_Text = {}
+channel = &#39;SAY&#39;
+
+SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = &#39;/hiw&#39;, &#39;/hellow&#39;;
+function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
+	if id and text then
+		HelloWorld_Text[id:lower()] = text
+	end
+end
+
+SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = &quot;/hwshow&quot;, &quot;/helloworldshow&quot;
+function SlashCmdList.HELLOWORLD_SHOW(msg)
+	local text = HelloWorld_Text[msg:lower()]
+	if text then
+		SendChatMessage(text, channel);
+	end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s look at the start of the code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;HelloWorld_Text = {}
+channel = &#39;SAY&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These are globally declared variables, a Table HelloWorld_Text and string that we will use to decide what channel our command gets used in.
+The next lines mark the first function, this function defines an in-game command a slash command, and then decides what that slash command does.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = &#39;/hiw&#39;, &#39;/hellow&#39;;
+function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
+	if id and text then
+		HelloWorld_Text[id:lower()] = text
+	end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = ‘/hiw’, ‘/hellow’; This line defines a set of / commands a user can use in game to call the HELLOWORLD function, which we define immediately under as needing an argument that we parse using regular expressions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we have here is a function that gets called every time someone inputs a slash command that calls HELLOWORLD but it requires to have an argument immediately after, the next line is the start of the function that parses the argument that gets passed.  (%S)%s takes in the first Nonspace character and stops at the first whitespace character, which means the first word in our argument becomes id, (.+) is an expression that takes everything else and puts it into text.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if id and text then
+	HelloWorld_Text[id:lower()] = text
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then once we have our two variable, we insert them into the table so that using the id as a reference, we will get text.  id:lower() just allows us to always convert whatever argument a user puts in to lower case so that these commands are not case sensitive to call back.  So, now that we have HelloWorld_Text defined as something, what are we going to do with it?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = &quot;/hwshow&quot;, &quot;/helloworldshow&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is simply creating another slash command which we will use to put out the contents of HelloWorld_Text for the user.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function SlashCmdList.HELLOWORLD_SHOW(msg)
+	local text = HelloWorld_Text[msg:lower()]
+		if text then
+		SendChatMessage(text, channel);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.&lt;/p&gt;
+</description>
+                <link>http://impally.github.io/Learning_Lua</link>
+                <guid>http://impally.github.io/learning-lua-wow-addons</guid>
+                <pubDate>2014-10-18T00:00:00-04:00</pubDate>
+        </item>
+
+        <item>
+                <title>Learning APIs, Reddit Wallpapers</title>
                 <description>
 </description>
-                <link>http://impally.github.io/2014/10/15/resume</link>
-                <guid>http://impally.github.io/2014/10/15/resume</guid>
-                <pubDate>2014-10-15T00:00:00-04:00</pubDate>
+                <link>http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers</link>
+                <guid>http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers</guid>
+                <pubDate>2014-10-18T00:00:00-04:00</pubDate>
         </item>
 
         <item>

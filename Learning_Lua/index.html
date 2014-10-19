@@ -216,6 +216,108 @@ end
 
 <p>So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.</p>
 
+<pre><code>local function showTooltip(self, linkData)
+	local linkType = string.split(":", linkData)
+	if linkType == "item"
+	or linkType == "spell"
+	or linkType == "enchant"
+	or linkType == "quest"
+	or linkType == "talent"
+	or linkType == "glyph"
+	or linkType == "unit"
+	or linkType == "achievement" then
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+		GameTooltip:SetHyperlink(linkData)
+		GameTooltip:Show()
+	else
+		print(...)
+	end
+end
+local function hideTooltip()
+	GameTooltip:Hide()
+end
+
+local function setOrHookHandler(frame, script, func)
+	if frame:GetScript(script) then -- check if it already has a 			script handler...
+		frame:HookScript(script, func) -- ... Hook that script.
+	else
+		frame:SetScript(script, func) -- set our function as script handler
+	end
+end
+
+for i = 1, NUM_CHAT_WINDOWS do
+	local frame = getglobal("ChatFrame"..i) -- copy each chat frame
+	if frame then -- making sure frame is not null
+		setOrHookHandler(frame, "OnHyperLinkEnter", showTooltip)
+		setOrHookHandler(frame, "OnHyperLinkLeave", hideTooltip)
+	end
+end
+</code></pre>
+
+<p>This function is a lot longer and incorporates learning how World of Warcraft handles events.  It helps to note that this add-on is a simple add-on that checks to see if a user’s mouse is in a chat window and if it is hovering over a game item, if it is then it is designed to show the WoW tooltip for that item.  We have four functions, but let’s take a look at the main one before we look at the others it calls:</p>
+
+<pre><code>for i = 1, NUM_CHAT_WINDOWS do
+	local frame = getglobal("ChatFrame"..i) -- copy each chat frame
+	if frame then -- making sure frame is not null
+		setOrHookHandler(frame, "OnHyperLinkEnter", showTooltip)
+		setOrHookHandler(frame, "OnHyperLinkLeave", hideTooltip)
+	end
+end
+</code></pre>
+
+<p>This is a simple start, we have a for loop to check each frame in the chat by using preset variables the developers gave us, NUM_CHAT_WINDOWS is defined by Blizzard so that our script will see the total number of windows the user currently has.  getglobal is a function that takes a string and returns the value of the variable we asked for.  We have to use the getglobal function because the value of ChatFrame is not defined by the user so it is server side where the Chat Windows are defined on client side and I just wanted to note this difference before looking at the next part of the code:</p>
+
+<pre><code>if frame then -- making sure frame is not null
+	setOrHookHandler(frame, "OnHyperLinkEnter", showTooltip)
+	setOrHookHandler(frame, "OnHyperLinkLeave", hideTooltip)
+end
+</code></pre>
+
+<p>So, we make sure that the function we called return something before we use a function we defined earlier, passing it three arguments the frame, a script name, and a function.  OnHyperLinkEnter and OnHyperLinkLeave are scripts defined in the WoW API for addon creation and we want to use these functions in setOrHookHandler so let’s look at that function:</p>
+
+<pre><code>local function setOrHookHandler(frame, script, func)
+	if frame:GetScript(script) then -- check if it already has a script handler...
+		frame:HookScript(script, func) -- ... Hook that script.
+	else
+		frame:SetScript(script, func) -- set our function as script handler
+	end
+</code></pre>
+
+<p>setOrHookHandler allows us to check to see what the game wants to do with the function, the major difference between HookScript and SetScript is that hooking the script allows the Script maintain its earlier functionality while SetScript sets the functionality to our function.  HookScript is clearly safer, but if the Script is not in use in the chatframe we are using then it cannot be hooked, therefore SetScript is a neccessity. Now, we have it set so that whenever we hover over a link, or stop hovering the functions show and hide Tooltip get called, let’s take a look:</p>
+
+<pre><code>local function showTooltip(self, linkData)
+	local linkType = string.split(":", linkData)
+	if linkType == "item"
+	or linkType == "spell"
+	or linkType == "enchant"
+	or linkType == "quest"
+	or linkType == "talent"
+	or linkType == "glyph"
+	or linkType == "unit"
+	or linkType == "achievement" then
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+		GameTooltip:SetHyperlink(linkData)
+		GameTooltip:Show()
+	else
+		print(...)
+	end
+end
+local function hideTooltip()
+	GameTooltip:Hide()
+end
+</code></pre>
+
+<p>When we hover over the item, a table of data gets displayed, if we were to change our parameters to … and we simply change the function to print(…) then in the local chat window the table will get dumped for us to inspect. The first part of the table is the table id, we save that into self so that the rest is all table data separated like so category : value, it should be noted that the table is returned as a string and we are parsing that string to get values.  So we split by the : to grab the first category and we run it through a series of checks.  The if statement is pretty self explanatory, if the type of link we hovered over is any of those categories then do the what comes after, so let’s take a look at what happens: </p>
+
+<pre><code>GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+GameTooltip:SetHyperlink(linkData)
+GameTooltip:Show()
+</code></pre>
+
+<p>GameTooltip is a frame set in the game, we call the SetOwner function to decide where that frame is going to be and we provide the argument ANCHOR_CURSOR so that the Tooltip will show where the mouse is, next is to give value to the Tooltip.  SetHyperLink(linkData) passes the table we have into the in game frame for tool tip so that the frame has a value, and then we use the Show() function to reveal that tooltip.  In my function, I’ve kept an else statement so that when I hover over a player’s name it still spits out their table data which I plan on studying to use at a later date.</p>
+
+<p>The last function we have is hideTooltip() gets called when we leave a HyperLink it hides the Tooltip we created in showTooltip.  This works with no arguments because GameTooltip is a frame created in game and is client side, therefore we can use the variable directly.  These are two of the first addons the book teaches players to create and instead of looking at the overall add-on creation, I would focus on understanding the LUA behind it as I learn to play with the WoW API for addon creation.</p>
+
     <hr>
     <div class="pagination btn-group">
       
@@ -267,7 +369,7 @@ end
 
     <footer>
       <div class="container">
-        <a href="impally.github.io/Resume.html">My Resume</a>
+        <a href="/Resume.html">My Resume</a>
         <p>&copy; 2014 Rodger Friesen
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>

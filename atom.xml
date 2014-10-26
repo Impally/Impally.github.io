@@ -4,7 +4,7 @@
  <title>The Projects Blog</title>
  <link href="http://impally.github.io/" rel="self"/>
  <link href="http://impally.github.io"/>
- <updated>2014-10-19T06:09:09-04:00</updated>
+ <updated>2014-10-26T11:15:41-04:00</updated>
  <id>http://impally.github.io</id>
  <author>
    <name>Rodger Friesen</name>
@@ -197,7 +197,108 @@ GameTooltip:Show()
    <content type="html">
 &lt;p&gt;API’s are an extremely useful tool, and I have not been programming for very long so I wanted to learn how to use one.  While I was an intern at Ashland Inc., I became friends with an intern in another department who was talking to me one day about the Reddit API.  Reddit’s API is extremely accessible and the intern discussed how he used Python to access the JSON and download Wallpapers for his computer and I thought the project sounded fun and useful so let’s look at my Python script to download the top Wallpapers from Reddit:&lt;/p&gt;
 
-&lt;p&gt;Currently the code is on my other computer, will finish the rest of this when I get home.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import json
+from urllib import request
+Link = request.urlopen(&#39;http://www.reddit.com/r/wallpapers/top/.json?sort=top&amp;amp;t=day&#39;)
+save = Link.read()
+linkTranslation = json.loads(save.decode(&#39;utf-8&#39;))
+for i in linkTranslation[&quot;data&quot;][&quot;children&quot;]:
+	pic =(i[&quot;data&quot;][&quot;url&quot;])
+	if(pic.endswith(&quot;.png&quot;) or pic.endswith(&quot;.jpg&quot;)):
+    	if i[&quot;data&quot;][&quot;thumbnail&quot;] != &#39;default&#39;:
+        	name = i[&quot;data&quot;][&quot;thumbnail&quot;].split(&quot;.com/&quot;)[1]
+        	wallPaper = request.urlretrieve(pic, &quot;E:/Wallpapers/&quot; + name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first important thing to notice is the two imports, Python has library support for JSON and opening URL’s, urllib will allow us to get the contents of the URL, the URL we open will give us JSON API data, which adheres to REST API standards.  It is important to note here that Reddit controls its api, so too many calls to its system are not allowed, if there are too many calls the Python will start failing, so it only saves so many pictures.  So, let’s look at the following two lines of code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Link = request.urlopen(&#39;http://www.reddit.com/r/wallpapers/top/.json?sort=top&amp;amp;t=day&#39;)
+save = Link.read()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Link has us open the link, so we have the object but what we want is the contents, so in save we use the read function in order to dump the contents into that variable. At this point what we have is a lot of data formatted by JSON standards, so we have to translate it.  Note: The URL we came up with is based off the Reddit API, if you add .json? at the end of a page before queries, it will give you the JSON for that page, so we find the page we want to use and manipulate the URL, in this case we went to r/wallpapers because we are downloading wallapers, so let’s visit the URL and take a look at what that data looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;kind&quot;: &quot;Listing&quot;,
+  &quot;data&quot;: {
+    &quot;modhash&quot;: &quot;hzi7s7igg028883209a155c5e5c1bed2779e4e6ffa03ea03fe&quot;,
+    &quot;children&quot;: [
+      {
+        &quot;kind&quot;: &quot;t3&quot;,
+        &quot;data&quot;: {
+          &quot;domain&quot;: &quot;i.imgur.com&quot;,
+          &quot;banned_by&quot;: null,
+          &quot;media_embed&quot;: {
+            
+          },
+          &quot;subreddit&quot;: &quot;wallpapers&quot;,
+          &quot;selftext_html&quot;: null,
+          &quot;selftext&quot;: &quot;&quot;,
+          &quot;likes&quot;: null,
+          &quot;user_reports&quot;: [
+            
+          ],
+          &quot;secure_media&quot;: null,
+          &quot;link_flair_text&quot;: null,
+          &quot;id&quot;: &quot;2kaggv&quot;,
+          &quot;gilded&quot;: 0,
+          &quot;secure_media_embed&quot;: {
+            
+          },
+          &quot;clicked&quot;: false,
+          &quot;report_reasons&quot;: null,
+          &quot;author&quot;: &quot;B-owl&quot;,
+          &quot;media&quot;: null,
+          &quot;score&quot;: 1114,
+          &quot;approved_by&quot;: null,
+          &quot;over_18&quot;: false,
+          &quot;hidden&quot;: false,
+          &quot;thumbnail&quot;: &quot;http://b.thumbs.redditmedia.com/yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg&quot;,
+          &quot;subreddit_id&quot;: &quot;t5_2qhw4&quot;,
+          &quot;edited&quot;: false,
+          &quot;link_flair_css_class&quot;: null,
+          &quot;author_flair_css_class&quot;: null,
+          &quot;downs&quot;: 0,
+          &quot;mod_reports&quot;: [
+            
+          ],
+          &quot;saved&quot;: false,
+          &quot;is_self&quot;: false,
+          &quot;name&quot;: &quot;t3_2kaggv&quot;,
+          &quot;permalink&quot;: &quot;/r/wallpapers/comments/2kaggv/pretty_redhead_who_is_she/&quot;,
+          &quot;stickied&quot;: false,
+          &quot;created&quot;: 1414278602.0,
+          &quot;url&quot;: &quot;http://i.imgur.com/p4xCDKM.jpg&quot;,
+          &quot;author_flair_text&quot;: null,
+          &quot;title&quot;: &quot;Pretty Redhead. Who is she?&quot;,
+          &quot;created_utc&quot;: 1414249802.0,
+          &quot;ups&quot;: 1114,
+          &quot;num_comments&quot;: 117,
+          &quot;visited&quot;: false,
+          &quot;num_reports&quot;: null,
+          &quot;distinguished&quot;: null
+        }
+      },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first thing to notice is the dented structure, from this we can almost guess what might be the initial idea of the data structure, which is that “kind” is an array of arrays, and it has the subtype data which has a modhash and a children array.  Upon further inspection, we notice thumbnail and URL in children, but it falls under data category, these are potentially what we need to find the Wallpapers and save them.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;linkTranslation = json.loads(save.decode(&#39;utf-8&#39;))
+for i in linkTranslation[&quot;data&quot;][&quot;children&quot;]:
+	pic =(i[&quot;data&quot;][&quot;url&quot;])
+	if(pic.endswith(&quot;.png&quot;) or pic.endswith(&quot;.jpg&quot;)):
+    	if i[&quot;data&quot;][&quot;thumbnail&quot;] != &#39;default&#39;:
+        	name = i[&quot;data&quot;][&quot;thumbnail&quot;].split(&quot;.com/&quot;)[1]
+        	wallPaper = request.urlretrieve(pic, &quot;E:/Wallpapers/&quot; + name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Stepping through this, our Json function takes in the contents of save, makes sure they are in utf-8 formatting and converts them to a series of arrays as discussed previous, so then we need to iterate through the array and pull out each URL, we do this in Python with an implied for loop, and then we find the picture we want.  The picture is located at [“data”][“url”], which we then use a simple if statement to make sure it is a format we want(this is avoid saving a webpage instead of just a picture with a png or jpg extension).  The final part is saving the picture with an appropriate name.  For our purposes, we went with the most simple route, we want a word that doesn’t have spaces (This is why we can’t simply use title, and we want). &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if i[&quot;data&quot;][&quot;thumbnail&quot;] != &#39;default&#39;:
+    name = i[&quot;data&quot;][&quot;thumbnail&quot;].split(&quot;.com/&quot;)[1]
+    wallPaper = request.urlretrieve(pic, &quot;E:/Wallpapers/&quot; + name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I use the thumbnail, which can either have a url value or a default value (This is from experience of looking at the API’s, I could be incorrect but let us assume for this case we are right).  So, we call the split function on this value, which will return two values in an array, we reference the second but it is best to see what this returns, so for the value http://b.thumbs.redditmedia.com/yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg the split function will return http://b.thumbs.redditmedia and yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg  We can reference these by adding [0] or [1] because it is returning an array of strings, we use [1] for the second element and we save that as the name.  The last statement saves the url which should either be a png or jpg and saves it in the directory E:/Wallpapers/ and saves it with the name we retrieved in the last statement.  This is a rather small amount of code to accomplish a big task, and further work could be done to check for resolutions and to make sure we haven’t had the same picture before, these are both projects I hope to come from this code in the future.&lt;/p&gt;
 </content>
  </entry>
  

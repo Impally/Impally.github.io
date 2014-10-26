@@ -141,3 +141,21 @@ a.Resume:hover{
 	h5, h6 { font-size: 110%; }
 	pre, code, tt { font-size:11px; }
 }
+
+@media print {
+body {
+zoom: 0.8;
+}
+.section:nth-child(3) {
+page-break-after: always;
+}
+.document {
+margin: 0;
+}
+a#pdf {
+display: none;
+}
+.contact-info {
+padding-top: 1em;
+}
+}

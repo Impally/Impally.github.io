@@ -4,7 +4,7 @@
  <title>The Projects Blog</title>
  <link href="http://impally.github.io/" rel="self"/>
  <link href="http://impally.github.io"/>
- <updated>2014-10-26T11:15:41-04:00</updated>
+ <updated>2014-10-26T12:15:11-04:00</updated>
  <id>http://impally.github.io</id>
  <author>
    <name>Rodger Friesen</name>
@@ -191,9 +191,9 @@ GameTooltip:Show()
  
  <entry>
    <title>Learning APIs, Reddit Wallpapers</title>
-   <link href="http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers"/>
+   <link href="http://impally.github.io/Learning_APIs"/>
    <updated>2014-10-18T00:00:00-04:00</updated>
-   <id>http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers</id>
+   <id>http://impally.github.io/learning-apis-reddit-wallpapers</id>
    <content type="html">
 &lt;p&gt;API’s are an extremely useful tool, and I have not been programming for very long so I wanted to learn how to use one.  While I was an intern at Ashland Inc., I became friends with an intern in another department who was talking to me one day about the Reddit API.  Reddit’s API is extremely accessible and the intern discussed how he used Python to access the JSON and download Wallpapers for his computer and I thought the project sounded fun and useful so let’s look at my Python script to download the top Wallpapers from Reddit:&lt;/p&gt;
 

@@ -5,8 +5,8 @@
         <description>The Projects Blog - Rodger Friesen</description>
         <link>http://impally.github.io</link>
         <link>http://impally.github.io</link>
-        <lastBuildDate>2014-10-26T11:15:41-04:00</lastBuildDate>
-        <pubDate>2014-10-26T11:15:41-04:00</pubDate>
+        <lastBuildDate>2014-10-26T12:15:11-04:00</lastBuildDate>
+        <pubDate>2014-10-26T12:15:11-04:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -295,8 +295,8 @@ for i in linkTranslation[&quot;data&quot;][&quot;children&quot;]:
 
 &lt;p&gt;I use the thumbnail, which can either have a url value or a default value (This is from experience of looking at the API’s, I could be incorrect but let us assume for this case we are right).  So, we call the split function on this value, which will return two values in an array, we reference the second but it is best to see what this returns, so for the value http://b.thumbs.redditmedia.com/yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg the split function will return http://b.thumbs.redditmedia and yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg  We can reference these by adding [0] or [1] because it is returning an array of strings, we use [1] for the second element and we save that as the name.  The last statement saves the url which should either be a png or jpg and saves it in the directory E:/Wallpapers/ and saves it with the name we retrieved in the last statement.  This is a rather small amount of code to accomplish a big task, and further work could be done to check for resolutions and to make sure we haven’t had the same picture before, these are both projects I hope to come from this code in the future.&lt;/p&gt;
 </description>
-                <link>http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers</link>
-                <guid>http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers</guid>
+                <link>http://impally.github.io/Learning_APIs</link>
+                <guid>http://impally.github.io/learning-apis-reddit-wallpapers</guid>
                 <pubDate>2014-10-18T00:00:00-04:00</pubDate>
         </item>
 

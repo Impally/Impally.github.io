@@ -10,4 +10,4 @@ http://impally.github.io/sitemap.txt
 http://impally.github.io/tags.html
 
 http://impally.github.io/Learning_Lua
-http://impally.github.io/2014/10/18/learning-apis-reddit-wallpapers
+http://impally.github.io/Learning_APIs

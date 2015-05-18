@@ -22,16 +22,17 @@
     <link rel="stylesheet" type="text/css" href="/assets/themes/hooligan/css-social-buttons/css/zocial.stripped.css">
     <link href="/assets/themes/hooligan/css/darkstrap.css" rel="stylesheet" type="text/css" media="all">
     <link href="/assets/themes/hooligan/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
-    <link href="/assets/sons-of-obsidian.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="/assets/google-code-prettify/prettify.js"></script>
-    <!-- fav and touch icons -->
-      <link rel="shortcut icon" href="/assets/pictures/theview.jpg">
-      <link rel="apple-touch-icon" href="/assets/pictures/theview.jpg">
-      <link rel="apple-touch-icon" sizes="72x72" href="/assets/pictures/theview.jpg">
-      <link rel="apple-touch-icon" sizes="114x114" href="/assets/pictures/theview.jpg">
+    <link href="/assets/themes/hooligan/sons-of-obsidian.css" type="text/css" rel="stylesheet" />  
+    <script src="/assets/themes/hooligan/prettify.js"></script>
+
+    <link rel="shortcut icon" href="/assets/themes/hooligan/pictures/theview.jpg">
+    <link rel="apple-touch-icon" href="/assets/themes/hooligan/pictures/theview.jpg">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/themes/hooligan/pictures/theview.jpg">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/themes/hooligan/pictures/theview.jpg">
+
   </head>
 
-  <body OnLoad="prettyPrint()">
+  <body>
     <div id="page-wrap">
       <div class="navbar">
         <div class="navbar-inner">
@@ -52,10 +53,6 @@
                 
 
 
-  
-    
-      
-    
   
     
       
@@ -108,7 +105,6 @@
 
 
 
-                <li><a href="/about.html">About Me</a></li>
               </ul>
               <ul class="nav pull-right social visible-desktop">
                 <li class="divider-vertical"></li>
@@ -149,7 +145,8 @@
 <div class="row">
   <div class="span8">
     
-<p>I enjoy playing video games and my new interest in coding led me to want to start writing my own add-ons.  I recently purchased the book Beginning Lua with World of Warcraft Add-Ons, a tutorial written by the creator of a popular in game addon, Deadly Boss Mods, Paul Emmerich.  These are a few addons that I’ve worked with creating while doing the book and code enclosed explaining what each segment does.</p>
+
+I enjoy playing video games and my new interest in coding led me to want to start writing my own add-ons.  I recently purchased the book Beginning Lua with World of Warcraft Add-Ons, a tutorial written by the creator of a popular in game addon, Deadly Boss Mods, Paul Emmerich.  These are a few addons that I’ve worked with creating while doing the book and code enclosed explaining what each segment does.
 
 <pre><code>HelloWorld_Text = {}
 channel = 'SAY'
@@ -171,14 +168,14 @@ function SlashCmdList.HELLOWORLD_SHOW(msg)
 end
 </code></pre>
 
-<p>Let’s look at the start of the code:</p>
+Let’s look at the start of the code:
 
 <pre><code>HelloWorld_Text = {}
 channel = 'SAY'
 </code></pre>
 
-<p>These are globally declared variables, a Table HelloWorld_Text and string that we will use to decide what channel our command gets used in.
-The next lines mark the first function, this function defines an in-game command a slash command, and then decides what that slash command does.</p>
+These are globally declared variables, a Table HelloWorld_Text and string that we will use to decide what channel our command gets used in.
+The next lines mark the first function, this function defines an in-game command a slash command, and then decides what that slash command does.
 
 <pre><code>SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = '/hiw', '/hellow';
 function SlashCmdList.HELLOWORLD(msg)
@@ -189,24 +186,24 @@ function SlashCmdList.HELLOWORLD(msg)
 end
 </code></pre>
 
-<p>SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = ‘/hiw’, ‘/hellow’; This line defines a set of / commands a user can use in game to call the HELLOWORLD function, which we define immediately under as needing an argument that we parse using regular expressions.</p>
+SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = ‘/hiw’, ‘/hellow’; This line defines a set of / commands a user can use in game to call the HELLOWORLD function, which we define immediately under as needing an argument that we parse using regular expressions.
 
 <pre><code>function SlashCmdList.HELLOWORLD(msg)
 	local id, text = msg:match("(%S+)%s+(.+)")
 </code></pre>
 
-<p>What we have here is a function that gets called every time someone inputs a slash command that calls HELLOWORLD but it requires to have an argument immediately after, the next line is the start of the function that parses the argument that gets passed.  (%S)%s takes in the first Nonspace character and stops at the first whitespace character, which means the first word in our argument becomes id, (.+) is an expression that takes everything else and puts it into text.</p>
+What we have here is a function that gets called every time someone inputs a slash command that calls HELLOWORLD but it requires to have an argument immediately after, the next line is the start of the function that parses the argument that gets passed.  (%S)%s takes in the first Nonspace character and stops at the first whitespace character, which means the first word in our argument becomes id, (.+) is an expression that takes everything else and puts it into text.
 
 <pre><code>if id and text then
 	HelloWorld_Text[id:lower()] = text
 </code></pre>
 
-<p>Then once we have our two variable, we insert them into the table so that using the id as a reference, we will get text.  id:lower() just allows us to always convert whatever argument a user puts in to lower case so that these commands are not case sensitive to call back.  So, now that we have HelloWorld_Text defined as something, what are we going to do with it?</p>
+Then once we have our two variable, we insert them into the table so that using the id as a reference, we will get text.  id:lower() just allows us to always convert whatever argument a user puts in to lower case so that these commands are not case sensitive to call back.  So, now that we have HelloWorld_Text defined as something, what are we going to do with it?
 
 <pre><code>SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = "/hwshow", "/helloworldshow"
 </code></pre>
 
-<p>This is simply creating another slash command which we will use to put out the contents of HelloWorld_Text for the user.</p>
+This is simply creating another slash command which we will use to put out the contents of HelloWorld_Text for the user.
 
 <pre><code>function SlashCmdList.HELLOWORLD_SHOW(msg)
 	local text = HelloWorld_Text[msg:lower()]
@@ -214,7 +211,7 @@ end
 		SendChatMessage(text, channel);
 </code></pre>
 
-<p>So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.</p>
+So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.
 
 <pre><code>local function showTooltip(self, linkData)
 	local linkType = string.split(":", linkData)
@@ -254,7 +251,7 @@ for i = 1, NUM_CHAT_WINDOWS do
 end
 </code></pre>
 
-<p>This function is a lot longer and incorporates learning how World of Warcraft handles events.  It helps to note that this add-on is a simple add-on that checks to see if a user’s mouse is in a chat window and if it is hovering over a game item, if it is then it is designed to show the WoW tooltip for that item.  We have four functions, but let’s take a look at the main one before we look at the others it calls:</p>
+This function is a lot longer and incorporates learning how World of Warcraft handles events.  It helps to note that this add-on is a simple add-on that checks to see if a user’s mouse is in a chat window and if it is hovering over a game item, if it is then it is designed to show the WoW tooltip for that item.  We have four functions, but let’s take a look at the main one before we look at the others it calls:
 
 <pre><code>for i = 1, NUM_CHAT_WINDOWS do
 	local frame = getglobal("ChatFrame"..i) -- copy each chat frame
@@ -265,7 +262,7 @@ end
 end
 </code></pre>
 
-<p>This is a simple start, we have a for loop to check each frame in the chat by using preset variables the developers gave us, NUM_CHAT_WINDOWS is defined by Blizzard so that our script will see the total number of windows the user currently has.  getglobal is a function that takes a string and returns the value of the variable we asked for.  We have to use the getglobal function because the value of ChatFrame is not defined by the user so it is server side where the Chat Windows are defined on client side and I just wanted to note this difference before looking at the next part of the code:</p>
+This is a simple start, we have a for loop to check each frame in the chat by using preset variables the developers gave us, NUM_CHAT_WINDOWS is defined by Blizzard so that our script will see the total number of windows the user currently has.  getglobal is a function that takes a string and returns the value of the variable we asked for.  We have to use the getglobal function because the value of ChatFrame is not defined by the user so it is server side where the Chat Windows are defined on client side and I just wanted to note this difference before looking at the next part of the code:
 
 <pre><code>if frame then -- making sure frame is not null
 	setOrHookHandler(frame, "OnHyperLinkEnter", showTooltip)
@@ -273,7 +270,7 @@ end
 end
 </code></pre>
 
-<p>So, we make sure that the function we called return something before we use a function we defined earlier, passing it three arguments the frame, a script name, and a function.  OnHyperLinkEnter and OnHyperLinkLeave are scripts defined in the WoW API for addon creation and we want to use these functions in setOrHookHandler so let’s look at that function:</p>
+So, we make sure that the function we called return something before we use a function we defined earlier, passing it three arguments the frame, a script name, and a function.  OnHyperLinkEnter and OnHyperLinkLeave are scripts defined in the WoW API for addon creation and we want to use these functions in setOrHookHandler so let’s look at that function:
 
 <pre><code>local function setOrHookHandler(frame, script, func)
 	if frame:GetScript(script) then -- check if it already has a script handler...
@@ -283,7 +280,7 @@ end
 	end
 </code></pre>
 
-<p>setOrHookHandler allows us to check to see what the game wants to do with the function, the major difference between HookScript and SetScript is that hooking the script allows the Script maintain its earlier functionality while SetScript sets the functionality to our function.  HookScript is clearly safer, but if the Script is not in use in the chatframe we are using then it cannot be hooked, therefore SetScript is a neccessity. Now, we have it set so that whenever we hover over a link, or stop hovering the functions show and hide Tooltip get called, let’s take a look:</p>
+setOrHookHandler allows us to check to see what the game wants to do with the function, the major difference between HookScript and SetScript is that hooking the script allows the Script maintain its earlier functionality while SetScript sets the functionality to our function.  HookScript is clearly safer, but if the Script is not in use in the chatframe we are using then it cannot be hooked, therefore SetScript is a neccessity. Now, we have it set so that whenever we hover over a link, or stop hovering the functions show and hide Tooltip get called, let’s take a look:
 
 <pre><code>local function showTooltip(self, linkData)
 	local linkType = string.split(":", linkData)
@@ -307,29 +304,50 @@ local function hideTooltip()
 end
 </code></pre>
 
-<p>When we hover over the item, a table of data gets displayed, if we were to change our parameters to … and we simply change the function to print(…) then in the local chat window the table will get dumped for us to inspect. The first part of the table is the table id, we save that into self so that the rest is all table data separated like so category : value, it should be noted that the table is returned as a string and we are parsing that string to get values.  So we split by the : to grab the first category and we run it through a series of checks.  The if statement is pretty self explanatory, if the type of link we hovered over is any of those categories then do the what comes after, so let’s take a look at what happens: </p>
+When we hover over the item, a table of data gets displayed, if we were to change our parameters to … and we simply change the function to print(…) then in the local chat window the table will get dumped for us to inspect. The first part of the table is the table id, we save that into self so that the rest is all table data separated like so category : value, it should be noted that the table is returned as a string and we are parsing that string to get values.  So we split by the : to grab the first category and we run it through a series of checks.  The if statement is pretty self explanatory, if the type of link we hovered over is any of those categories then do the what comes after, so let’s take a look at what happens: 
 
 <pre><code>GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 GameTooltip:SetHyperlink(linkData)
 GameTooltip:Show()
 </code></pre>
 
-<p>GameTooltip is a frame set in the game, we call the SetOwner function to decide where that frame is going to be and we provide the argument ANCHOR_CURSOR so that the Tooltip will show where the mouse is, next is to give value to the Tooltip.  SetHyperLink(linkData) passes the table we have into the in game frame for tool tip so that the frame has a value, and then we use the Show() function to reveal that tooltip.  In my function, I’ve kept an else statement so that when I hover over a player’s name it still spits out their table data which I plan on studying to use at a later date.</p>
+GameTooltip is a frame set in the game, we call the SetOwner function to decide where that frame is going to be and we provide the argument ANCHOR_CURSOR so that the Tooltip will show where the mouse is, next is to give value to the Tooltip.  SetHyperLink(linkData) passes the table we have into the in game frame for tool tip so that the frame has a value, and then we use the Show() function to reveal that tooltip.  In my function, I’ve kept an else statement so that when I hover over a player’s name it still spits out their table data which I plan on studying to use at a later date.
 
-<p>The last function we have is hideTooltip() gets called when we leave a HyperLink it hides the Tooltip we created in showTooltip.  This works with no arguments because GameTooltip is a frame created in game and is client side, therefore we can use the variable directly.  These are two of the first addons the book teaches players to create and instead of looking at the overall add-on creation, I would focus on understanding the LUA behind it as I learn to play with the WoW API for addon creation.</p>
+The last function we have is hideTooltip() gets called when we leave a HyperLink it hides the Tooltip we created in showTooltip.  This works with no arguments because GameTooltip is a frame created in game and is client side, therefore we can use the variable directly.  These are two of the first addons the book teaches players to create and instead of looking at the overall add-on creation, I would focus on understanding the LUA behind it as I learn to play with the WoW API for addon creation.
 
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/Learning_APIs" title="Learning APIs, Reddit Wallpapers">&larr; Previous</a>
+        <a class="btn disabled prev">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next disabled">Next &rarr;</a>
+        <a class="btn next" href="/learning-apis" title="Learning APIs">Next &rarr;</a>
       
     </div>
     <hr>
     
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
   </div>
   
   <div class="span4">
@@ -369,8 +387,7 @@ GameTooltip:Show()
 
     <footer>
       <div class="container">
-        <a href="/Resume.html">My Resume</a>
-        <p>&copy; 2014 Rodger Friesen
+        <p>&copy; 2015 Rodger Friesen
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
         </p>
@@ -381,7 +398,10 @@ GameTooltip:Show()
     <script>window.jQuery || document.write('<script src="/assets/themes/hooligan/js/jquery.min.js"><\/script>')</script>
     <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script>
     <script>[].forEach.call(document.getElementsByTagName("pre"), function(el) { el.classList.add("prettyprint"); }); prettyPrint(); </script>
+
     
+
+
   </body>
 </html>
 

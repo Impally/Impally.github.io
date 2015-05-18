@@ -1,0 +1,161 @@
+/* Global Reset */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+@viewport{
+	width: device-width;
+	}
+body{
+	background-color: rgb(255,255,255);
+	width: 100%;
+	margin: 0 auto;
+	color: #444;
+	}
+	
+.document{
+	padding: 10px 80px;
+	margin: 80px auto;
+	background: #f5f5f5;
+	border: solid #666;
+	border-width: 8px 8px 2px 0;
+	text-align: left;
+	font-family: 'Roboto Condensed', sans-serif;
+	display: block;
+	}
+	
+.section{
+	width: 100%;
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+	
+.desc{
+	border-left: 1px solid #ccc;
+	width: 80%;
+	float: left;
+	padding: 0px 0px 0px 20px;
+}
+
+.desc .talent{
+	width: 45%;
+	float: left;
+	height: 170px;
+	margin: auto;
+	padding-right: 1em;
+}
+
+.topic{
+	float: left;
+	width: 10%;
+}
+
+.contact-info{
+	float: right;
+	width: 25%;
+	text-align: center;
+}
+a#pdf{
+	display: block;
+	background: #666;
+	color: white;
+	padding: 6px 50px 6px;
+	margin-bottom: 6px;
+	text-decoration: none;
+	margin: 11px auto;
+}
+
+h1.title{
+	text-decoration: none;
+	font-weight: normal;
+	height: 56px;
+	float: left;
+}
+
+a.Resume{
+	font-size: 42px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-decoration: none;
+	color: #333;
+	float: left;
+	font-family: 'Cantata One', serif;
+}
+
+a.Resume:hover{
+	color: rgb{255,255,255};
+}
+
+.document .header{
+	margin: 2.5em 0 1.5em 0;
+	border-bottom: 1px solid #ccc;
+	height: 100px;
+	display: in-line block;
+}
+	
+/*****************************************************************************/
+/*
+/* Media Queries for mobile and alternate versions
+/*
+/*****************************************************************************/
+
+@media screen and (min-width: 480px) {
+	body { zoom: 0.8; }
+}
+
+@media screen and (min-width: 680px) {
+	body { zoom: 0.9 ; width: 949px; }
+	header { margin:0; }
+	footer { margin:5% 0; }
+}
+
+@media screen and (min-width: 780px){
+	body{ zoom: 1.1; }
+}
+	
+@media only screen and (max-device-width: 1024px) {
+	/* To constrain pre-formatted text to body width */
+	html.ios pre { overflow:scroll; }
+	html.ios pre, html.ios code, html.ios tt { font-size:0.95em; }
+}
+	
+/* iPhone */
+@media only screen and (max-device-width: 480px) {
+	header {
+		height: 120px;
+		margin:0 1em 0 0.8em;
+	}
+	header h1 { float:none; }
+	header ul.navigation {
+	float:none;
+	padding-left:0.1em;
+	margin-top: 5px;
+	}
+  
+	h1,h2 { font-size: 160%; }
+	h3 { font-size: 130%; }
+	h4 { font-size: 115%; }
+	h5, h6 { font-size: 110%; }
+	pre, code, tt { font-size:11px; }
+}
+
+@media print {
+body {
+zoom: 0.8;
+}
+.section:nth-child(3) {
+page-break-after: always;
+}
+.document {
+margin: 0;
+}
+a#pdf {
+display: none;
+}
+.contact-info {
+padding-top: 1em;
+}
+}

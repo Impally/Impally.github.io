@@ -1,13 +1,12 @@
 
-http://impally.github.io/about.html
-http://impally.github.io/archive.html
-http://impally.github.io/atom.xml
-http://impally.github.io/categories.html
-http://impally.github.io/index.html
-http://impally.github.io/pages.html
-http://impally.github.io/rss.xml
-http://impally.github.io/sitemap.txt
-http://impally.github.io/tags.html
+http://Impally.github.io/archive.html
+http://Impally.github.io/atom.xml
+http://Impally.github.io/categories.html
+http://Impally.github.io/index.html
+http://Impally.github.io/pages.html
+http://Impally.github.io/rss.xml
+http://Impally.github.io/sitemap.txt
+http://Impally.github.io/tags.html
 
-http://impally.github.io/Learning_Lua
-http://impally.github.io/Learning_APIs
+http://Impally.github.io/learning-apis
+http://Impally.github.io/Learning-Lua

@@ -2,198 +2,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>The Projects Blog</title>
- <link href="http://impally.github.io/" rel="self"/>
- <link href="http://impally.github.io"/>
- <updated>2014-10-26T17:49:40-04:00</updated>
- <id>http://impally.github.io</id>
+ <link href="http://Impally.github.io/" rel="self"/>
+ <link href="http://Impally.github.io"/>
+ <updated>2015-05-18T00:25:21-04:00</updated>
+ <id>http://Impally.github.io</id>
  <author>
    <name>Rodger Friesen</name>
-   <email>Rodger.Friesen@gmail.com</email>
+   <email>rodgerfriesen@gmail.com</email>
  </author>
 
  
  <entry>
-   <title>Learning LUA, WoW Addons</title>
-   <link href="http://impally.github.io/Learning_Lua"/>
+   <title>Learning APIs</title>
+   <link href="http://Impally.github.io/learning-apis"/>
    <updated>2014-10-18T00:00:00-04:00</updated>
-   <id>http://impally.github.io/learning-lua-wow-addons</id>
-   <content type="html">
-&lt;p&gt;I enjoy playing video games and my new interest in coding led me to want to start writing my own add-ons.  I recently purchased the book Beginning Lua with World of Warcraft Add-Ons, a tutorial written by the creator of a popular in game addon, Deadly Boss Mods, Paul Emmerich.  These are a few addons that I’ve worked with creating while doing the book and code enclosed explaining what each segment does.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;HelloWorld_Text = {}
-channel = &#39;SAY&#39;
-
-SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = &#39;/hiw&#39;, &#39;/hellow&#39;;
-function SlashCmdList.HELLOWORLD(msg)
-	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
-	if id and text then
-		HelloWorld_Text[id:lower()] = text
-	end
-end
-
-SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = &quot;/hwshow&quot;, &quot;/helloworldshow&quot;
-function SlashCmdList.HELLOWORLD_SHOW(msg)
-	local text = HelloWorld_Text[msg:lower()]
-	if text then
-		SendChatMessage(text, channel);
-	end
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let’s look at the start of the code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;HelloWorld_Text = {}
-channel = &#39;SAY&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;These are globally declared variables, a Table HelloWorld_Text and string that we will use to decide what channel our command gets used in.
-The next lines mark the first function, this function defines an in-game command a slash command, and then decides what that slash command does.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = &#39;/hiw&#39;, &#39;/hellow&#39;;
-function SlashCmdList.HELLOWORLD(msg)
-	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
-	if id and text then
-		HelloWorld_Text[id:lower()] = text
-	end
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = ‘/hiw’, ‘/hellow’; This line defines a set of / commands a user can use in game to call the HELLOWORLD function, which we define immediately under as needing an argument that we parse using regular expressions.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;function SlashCmdList.HELLOWORLD(msg)
-	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;What we have here is a function that gets called every time someone inputs a slash command that calls HELLOWORLD but it requires to have an argument immediately after, the next line is the start of the function that parses the argument that gets passed.  (%S)%s takes in the first Nonspace character and stops at the first whitespace character, which means the first word in our argument becomes id, (.+) is an expression that takes everything else and puts it into text.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;if id and text then
-	HelloWorld_Text[id:lower()] = text
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then once we have our two variable, we insert them into the table so that using the id as a reference, we will get text.  id:lower() just allows us to always convert whatever argument a user puts in to lower case so that these commands are not case sensitive to call back.  So, now that we have HelloWorld_Text defined as something, what are we going to do with it?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = &quot;/hwshow&quot;, &quot;/helloworldshow&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is simply creating another slash command which we will use to put out the contents of HelloWorld_Text for the user.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;function SlashCmdList.HELLOWORLD_SHOW(msg)
-	local text = HelloWorld_Text[msg:lower()]
-		if text then
-		SendChatMessage(text, channel);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local function showTooltip(self, linkData)
-	local linkType = string.split(&quot;:&quot;, linkData)
-	if linkType == &quot;item&quot;
-	or linkType == &quot;spell&quot;
-	or linkType == &quot;enchant&quot;
-	or linkType == &quot;quest&quot;
-	or linkType == &quot;talent&quot;
-	or linkType == &quot;glyph&quot;
-	or linkType == &quot;unit&quot;
-	or linkType == &quot;achievement&quot; then
-		GameTooltip:SetOwner(self, &quot;ANCHOR_CURSOR&quot;)
-		GameTooltip:SetHyperlink(linkData)
-		GameTooltip:Show()
-	else
-		print(...)
-	end
-end
-local function hideTooltip()
-	GameTooltip:Hide()
-end
-
-local function setOrHookHandler(frame, script, func)
-	if frame:GetScript(script) then -- check if it already has a 			script handler...
-		frame:HookScript(script, func) -- ... Hook that script.
-	else
-		frame:SetScript(script, func) -- set our function as script handler
-	end
-end
-
-for i = 1, NUM_CHAT_WINDOWS do
-	local frame = getglobal(&quot;ChatFrame&quot;..i) -- copy each chat frame
-	if frame then -- making sure frame is not null
-		setOrHookHandler(frame, &quot;OnHyperLinkEnter&quot;, showTooltip)
-		setOrHookHandler(frame, &quot;OnHyperLinkLeave&quot;, hideTooltip)
-	end
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This function is a lot longer and incorporates learning how World of Warcraft handles events.  It helps to note that this add-on is a simple add-on that checks to see if a user’s mouse is in a chat window and if it is hovering over a game item, if it is then it is designed to show the WoW tooltip for that item.  We have four functions, but let’s take a look at the main one before we look at the others it calls:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;for i = 1, NUM_CHAT_WINDOWS do
-	local frame = getglobal(&quot;ChatFrame&quot;..i) -- copy each chat frame
-	if frame then -- making sure frame is not null
-		setOrHookHandler(frame, &quot;OnHyperLinkEnter&quot;, showTooltip)
-		setOrHookHandler(frame, &quot;OnHyperLinkLeave&quot;, hideTooltip)
-	end
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is a simple start, we have a for loop to check each frame in the chat by using preset variables the developers gave us, NUM_CHAT_WINDOWS is defined by Blizzard so that our script will see the total number of windows the user currently has.  getglobal is a function that takes a string and returns the value of the variable we asked for.  We have to use the getglobal function because the value of ChatFrame is not defined by the user so it is server side where the Chat Windows are defined on client side and I just wanted to note this difference before looking at the next part of the code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;if frame then -- making sure frame is not null
-	setOrHookHandler(frame, &quot;OnHyperLinkEnter&quot;, showTooltip)
-	setOrHookHandler(frame, &quot;OnHyperLinkLeave&quot;, hideTooltip)
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, we make sure that the function we called return something before we use a function we defined earlier, passing it three arguments the frame, a script name, and a function.  OnHyperLinkEnter and OnHyperLinkLeave are scripts defined in the WoW API for addon creation and we want to use these functions in setOrHookHandler so let’s look at that function:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local function setOrHookHandler(frame, script, func)
-	if frame:GetScript(script) then -- check if it already has a script handler...
-		frame:HookScript(script, func) -- ... Hook that script.
-	else
-		frame:SetScript(script, func) -- set our function as script handler
-	end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;setOrHookHandler allows us to check to see what the game wants to do with the function, the major difference between HookScript and SetScript is that hooking the script allows the Script maintain its earlier functionality while SetScript sets the functionality to our function.  HookScript is clearly safer, but if the Script is not in use in the chatframe we are using then it cannot be hooked, therefore SetScript is a neccessity. Now, we have it set so that whenever we hover over a link, or stop hovering the functions show and hide Tooltip get called, let’s take a look:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local function showTooltip(self, linkData)
-	local linkType = string.split(&quot;:&quot;, linkData)
-	if linkType == &quot;item&quot;
-	or linkType == &quot;spell&quot;
-	or linkType == &quot;enchant&quot;
-	or linkType == &quot;quest&quot;
-	or linkType == &quot;talent&quot;
-	or linkType == &quot;glyph&quot;
-	or linkType == &quot;unit&quot;
-	or linkType == &quot;achievement&quot; then
-		GameTooltip:SetOwner(self, &quot;ANCHOR_CURSOR&quot;)
-		GameTooltip:SetHyperlink(linkData)
-		GameTooltip:Show()
-	else
-		print(...)
-	end
-end
-local function hideTooltip()
-	GameTooltip:Hide()
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When we hover over the item, a table of data gets displayed, if we were to change our parameters to … and we simply change the function to print(…) then in the local chat window the table will get dumped for us to inspect. The first part of the table is the table id, we save that into self so that the rest is all table data separated like so category : value, it should be noted that the table is returned as a string and we are parsing that string to get values.  So we split by the : to grab the first category and we run it through a series of checks.  The if statement is pretty self explanatory, if the type of link we hovered over is any of those categories then do the what comes after, so let’s take a look at what happens: &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;GameTooltip:SetOwner(self, &quot;ANCHOR_CURSOR&quot;)
-GameTooltip:SetHyperlink(linkData)
-GameTooltip:Show()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;GameTooltip is a frame set in the game, we call the SetOwner function to decide where that frame is going to be and we provide the argument ANCHOR_CURSOR so that the Tooltip will show where the mouse is, next is to give value to the Tooltip.  SetHyperLink(linkData) passes the table we have into the in game frame for tool tip so that the frame has a value, and then we use the Show() function to reveal that tooltip.  In my function, I’ve kept an else statement so that when I hover over a player’s name it still spits out their table data which I plan on studying to use at a later date.&lt;/p&gt;
-
-&lt;p&gt;The last function we have is hideTooltip() gets called when we leave a HyperLink it hides the Tooltip we created in showTooltip.  This works with no arguments because GameTooltip is a frame created in game and is client side, therefore we can use the variable directly.  These are two of the first addons the book teaches players to create and instead of looking at the overall add-on creation, I would focus on understanding the LUA behind it as I learn to play with the WoW API for addon creation.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Learning APIs, Reddit Wallpapers</title>
-   <link href="http://impally.github.io/Learning_APIs"/>
-   <updated>2014-10-18T00:00:00-04:00</updated>
-   <id>http://impally.github.io/learning-apis-reddit-wallpapers</id>
+   <id>http://Impally.github.io/learning-apis</id>
    <content type="html">
 &lt;p&gt;API’s are an extremely useful tool, and I have not been programming for very long so I wanted to learn how to use one.  While I was an intern at Ashland Inc., I became friends with an intern in another department who was talking to me one day about the Reddit API.  Reddit’s API is extremely accessible and the intern discussed how he used Python to access the JSON and download Wallpapers for his computer and I thought the project sounded fun and useful so let’s look at my Python script to download the top Wallpapers from Reddit:&lt;/p&gt;
 
@@ -299,6 +122,184 @@ for i in linkTranslation[&quot;data&quot;][&quot;children&quot;]:
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;I use the thumbnail, which can either have a url value or a default value (This is from experience of looking at the API’s, I could be incorrect but let us assume for this case we are right).  So, we call the split function on this value, which will return two values in an array, we reference the second but it is best to see what this returns, so for the value http://b.thumbs.redditmedia.com/yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg the split function will return http://b.thumbs.redditmedia and yMsfyx-AouZdpGMiu-6avA2Hxrd2XaN1ggVuxPbi5HU.jpg  We can reference these by adding [0] or [1] because it is returning an array of strings, we use [1] for the second element and we save that as the name.  The last statement saves the url which should either be a png or jpg and saves it in the directory E:/Wallpapers/ and saves it with the name we retrieved in the last statement.  This is a rather small amount of code to accomplish a big task, and further work could be done to check for resolutions and to make sure we haven’t had the same picture before, these are both projects I hope to come from this code in the future.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Learning LUA, WoW Addons</title>
+   <link href="http://Impally.github.io/Learning-Lua"/>
+   <updated>2014-10-18T00:00:00-04:00</updated>
+   <id>http://Impally.github.io/Learning-Lua</id>
+   <content type="html">
+
+I enjoy playing video games and my new interest in coding led me to want to start writing my own add-ons.  I recently purchased the book Beginning Lua with World of Warcraft Add-Ons, a tutorial written by the creator of a popular in game addon, Deadly Boss Mods, Paul Emmerich.  These are a few addons that I’ve worked with creating while doing the book and code enclosed explaining what each segment does.
+
+&lt;pre&gt;&lt;code&gt;HelloWorld_Text = {}
+channel = &#39;SAY&#39;
+
+SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = &#39;/hiw&#39;, &#39;/hellow&#39;;
+function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
+	if id and text then
+		HelloWorld_Text[id:lower()] = text
+	end
+end
+
+SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = &quot;/hwshow&quot;, &quot;/helloworldshow&quot;
+function SlashCmdList.HELLOWORLD_SHOW(msg)
+	local text = HelloWorld_Text[msg:lower()]
+	if text then
+		SendChatMessage(text, channel);
+	end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+Let’s look at the start of the code:
+
+&lt;pre&gt;&lt;code&gt;HelloWorld_Text = {}
+channel = &#39;SAY&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+These are globally declared variables, a Table HelloWorld_Text and string that we will use to decide what channel our command gets used in.
+The next lines mark the first function, this function defines an in-game command a slash command, and then decides what that slash command does.
+
+&lt;pre&gt;&lt;code&gt;SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = &#39;/hiw&#39;, &#39;/hellow&#39;;
+function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
+	if id and text then
+		HelloWorld_Text[id:lower()] = text
+	end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+SLASH_HELLOWORLD1, SLASH_HELLOWORLD2 = ‘/hiw’, ‘/hellow’; This line defines a set of / commands a user can use in game to call the HELLOWORLD function, which we define immediately under as needing an argument that we parse using regular expressions.
+
+&lt;pre&gt;&lt;code&gt;function SlashCmdList.HELLOWORLD(msg)
+	local id, text = msg:match(&quot;(%S+)%s+(.+)&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+What we have here is a function that gets called every time someone inputs a slash command that calls HELLOWORLD but it requires to have an argument immediately after, the next line is the start of the function that parses the argument that gets passed.  (%S)%s takes in the first Nonspace character and stops at the first whitespace character, which means the first word in our argument becomes id, (.+) is an expression that takes everything else and puts it into text.
+
+&lt;pre&gt;&lt;code&gt;if id and text then
+	HelloWorld_Text[id:lower()] = text
+&lt;/code&gt;&lt;/pre&gt;
+
+Then once we have our two variable, we insert them into the table so that using the id as a reference, we will get text.  id:lower() just allows us to always convert whatever argument a user puts in to lower case so that these commands are not case sensitive to call back.  So, now that we have HelloWorld_Text defined as something, what are we going to do with it?
+
+&lt;pre&gt;&lt;code&gt;SLASH_HELLOWORLD_SHOW1, SLASH_HELLOWORLD_SHOW2 = &quot;/hwshow&quot;, &quot;/helloworldshow&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+This is simply creating another slash command which we will use to put out the contents of HelloWorld_Text for the user.
+
+&lt;pre&gt;&lt;code&gt;function SlashCmdList.HELLOWORLD_SHOW(msg)
+	local text = HelloWorld_Text[msg:lower()]
+		if text then
+		SendChatMessage(text, channel);
+&lt;/code&gt;&lt;/pre&gt;
+
+So, we call our function and we assume that whatever argument was passed became an id, we save text and then we call the function that WoW has for LUA called SendChatMessage that requires two arguments.  One is text, that is the contents of HelloWorld_Text[msg] and the other is the channel that we want this dumped out too.  A simple add-on, so let’s look at the next add-on Paul Emmerich had us make.
+
+&lt;pre&gt;&lt;code&gt;local function showTooltip(self, linkData)
+	local linkType = string.split(&quot;:&quot;, linkData)
+	if linkType == &quot;item&quot;
+	or linkType == &quot;spell&quot;
+	or linkType == &quot;enchant&quot;
+	or linkType == &quot;quest&quot;
+	or linkType == &quot;talent&quot;
+	or linkType == &quot;glyph&quot;
+	or linkType == &quot;unit&quot;
+	or linkType == &quot;achievement&quot; then
+		GameTooltip:SetOwner(self, &quot;ANCHOR_CURSOR&quot;)
+		GameTooltip:SetHyperlink(linkData)
+		GameTooltip:Show()
+	else
+		print(...)
+	end
+end
+local function hideTooltip()
+	GameTooltip:Hide()
+end
+
+local function setOrHookHandler(frame, script, func)
+	if frame:GetScript(script) then -- check if it already has a 			script handler...
+		frame:HookScript(script, func) -- ... Hook that script.
+	else
+		frame:SetScript(script, func) -- set our function as script handler
+	end
+end
+
+for i = 1, NUM_CHAT_WINDOWS do
+	local frame = getglobal(&quot;ChatFrame&quot;..i) -- copy each chat frame
+	if frame then -- making sure frame is not null
+		setOrHookHandler(frame, &quot;OnHyperLinkEnter&quot;, showTooltip)
+		setOrHookHandler(frame, &quot;OnHyperLinkLeave&quot;, hideTooltip)
+	end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+This function is a lot longer and incorporates learning how World of Warcraft handles events.  It helps to note that this add-on is a simple add-on that checks to see if a user’s mouse is in a chat window and if it is hovering over a game item, if it is then it is designed to show the WoW tooltip for that item.  We have four functions, but let’s take a look at the main one before we look at the others it calls:
+
+&lt;pre&gt;&lt;code&gt;for i = 1, NUM_CHAT_WINDOWS do
+	local frame = getglobal(&quot;ChatFrame&quot;..i) -- copy each chat frame
+	if frame then -- making sure frame is not null
+		setOrHookHandler(frame, &quot;OnHyperLinkEnter&quot;, showTooltip)
+		setOrHookHandler(frame, &quot;OnHyperLinkLeave&quot;, hideTooltip)
+	end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+This is a simple start, we have a for loop to check each frame in the chat by using preset variables the developers gave us, NUM_CHAT_WINDOWS is defined by Blizzard so that our script will see the total number of windows the user currently has.  getglobal is a function that takes a string and returns the value of the variable we asked for.  We have to use the getglobal function because the value of ChatFrame is not defined by the user so it is server side where the Chat Windows are defined on client side and I just wanted to note this difference before looking at the next part of the code:
+
+&lt;pre&gt;&lt;code&gt;if frame then -- making sure frame is not null
+	setOrHookHandler(frame, &quot;OnHyperLinkEnter&quot;, showTooltip)
+	setOrHookHandler(frame, &quot;OnHyperLinkLeave&quot;, hideTooltip)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+So, we make sure that the function we called return something before we use a function we defined earlier, passing it three arguments the frame, a script name, and a function.  OnHyperLinkEnter and OnHyperLinkLeave are scripts defined in the WoW API for addon creation and we want to use these functions in setOrHookHandler so let’s look at that function:
+
+&lt;pre&gt;&lt;code&gt;local function setOrHookHandler(frame, script, func)
+	if frame:GetScript(script) then -- check if it already has a script handler...
+		frame:HookScript(script, func) -- ... Hook that script.
+	else
+		frame:SetScript(script, func) -- set our function as script handler
+	end
+&lt;/code&gt;&lt;/pre&gt;
+
+setOrHookHandler allows us to check to see what the game wants to do with the function, the major difference between HookScript and SetScript is that hooking the script allows the Script maintain its earlier functionality while SetScript sets the functionality to our function.  HookScript is clearly safer, but if the Script is not in use in the chatframe we are using then it cannot be hooked, therefore SetScript is a neccessity. Now, we have it set so that whenever we hover over a link, or stop hovering the functions show and hide Tooltip get called, let’s take a look:
+
+&lt;pre&gt;&lt;code&gt;local function showTooltip(self, linkData)
+	local linkType = string.split(&quot;:&quot;, linkData)
+	if linkType == &quot;item&quot;
+	or linkType == &quot;spell&quot;
+	or linkType == &quot;enchant&quot;
+	or linkType == &quot;quest&quot;
+	or linkType == &quot;talent&quot;
+	or linkType == &quot;glyph&quot;
+	or linkType == &quot;unit&quot;
+	or linkType == &quot;achievement&quot; then
+		GameTooltip:SetOwner(self, &quot;ANCHOR_CURSOR&quot;)
+		GameTooltip:SetHyperlink(linkData)
+		GameTooltip:Show()
+	else
+		print(...)
+	end
+end
+local function hideTooltip()
+	GameTooltip:Hide()
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+When we hover over the item, a table of data gets displayed, if we were to change our parameters to … and we simply change the function to print(…) then in the local chat window the table will get dumped for us to inspect. The first part of the table is the table id, we save that into self so that the rest is all table data separated like so category : value, it should be noted that the table is returned as a string and we are parsing that string to get values.  So we split by the : to grab the first category and we run it through a series of checks.  The if statement is pretty self explanatory, if the type of link we hovered over is any of those categories then do the what comes after, so let’s take a look at what happens: 
+
+&lt;pre&gt;&lt;code&gt;GameTooltip:SetOwner(self, &quot;ANCHOR_CURSOR&quot;)
+GameTooltip:SetHyperlink(linkData)
+GameTooltip:Show()
+&lt;/code&gt;&lt;/pre&gt;
+
+GameTooltip is a frame set in the game, we call the SetOwner function to decide where that frame is going to be and we provide the argument ANCHOR_CURSOR so that the Tooltip will show where the mouse is, next is to give value to the Tooltip.  SetHyperLink(linkData) passes the table we have into the in game frame for tool tip so that the frame has a value, and then we use the Show() function to reveal that tooltip.  In my function, I’ve kept an else statement so that when I hover over a player’s name it still spits out their table data which I plan on studying to use at a later date.
+
+The last function we have is hideTooltip() gets called when we leave a HyperLink it hides the Tooltip we created in showTooltip.  This works with no arguments because GameTooltip is a frame created in game and is client side, therefore we can use the variable directly.  These are two of the first addons the book teaches players to create and instead of looking at the overall add-on creation, I would focus on understanding the LUA behind it as I learn to play with the WoW API for addon creation.
 </content>
  </entry>
  
